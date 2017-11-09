@@ -1,5 +1,7 @@
 package com.cto247.directoryapp.models;
 
+import java.util.Comparator;
+
 /**
  * Created by Sam on 10/7/2017.
  */
@@ -8,6 +10,7 @@ public class EmployeeInfo {
 
     private String EmployeeId;
     private String EmployeeName;
+    private String FullName;
     private String Department;
     private String Ext;
     private String ContactNumber;
@@ -20,6 +23,10 @@ public class EmployeeInfo {
 
     public String getEmployeeName() {
         return EmployeeName;
+    }
+
+    public String getFullName() {
+        return FullName;
     }
 
     public String getDepartment() {
@@ -41,6 +48,15 @@ public class EmployeeInfo {
     public String getAddress() {
         return Address;
     }
+
+    public static Comparator<EmployeeInfo> CompareByName = new Comparator<EmployeeInfo>(){
+        public int compare(EmployeeInfo e1, EmployeeInfo e2) {
+            String EmployeeName1 = e1.getFullName().toUpperCase();
+            String EmployeeName2 = e2.getFullName().toUpperCase();
+
+            //ascending order
+            return EmployeeName1.compareTo(EmployeeName2);
+        }};
 
     /*private String dealer_id;
     private String vin;

@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.cto247.directoryapp.models.EmployeeInfo;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -18,6 +20,7 @@ import java.util.List;
 public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.MyViewHolder> {
 
     private List<EmployeeInfo> empList;
+    private List<EmployeeInfo> orgList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name;
@@ -32,7 +35,9 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
 
 
     public ContactListAdapter(List<EmployeeInfo> list) {
+        Collections.sort(list, EmployeeInfo.CompareByName);
         this.empList = list;
+        this.orgList = list;
     }
 
     @Override
@@ -47,12 +52,34 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
     public void onBindViewHolder(MyViewHolder holder, int position) {
         EmployeeInfo emp = empList.get(position);
 
-        holder.name.setText(emp.getEmployeeName());
+        holder.name.setText(emp.getFullName());
         holder.logo.setBackgroundResource(R.drawable.con64);
     }
 
     @Override
     public int getItemCount() {
         return empList.size();
+    }
+
+    public void setFilter(String query) {
+        empList = new ArrayList<>();
+        if (query.isEmpty()){
+            Collections.sort(orgList,EmployeeInfo.CompareByName);
+            empList.addAll(orgList);
+        }
+        else {
+            query = query.toLowerCase();
+            List<EmployeeInfo> filteredModelList = new ArrayList<>();
+            for (EmployeeInfo model : orgList) {
+                final String text = model.getFullName().toLowerCase();
+                if (text.contains(query)) {
+                    filteredModelList.add(model);
+                }
+            }
+
+            Collections.sort(filteredModelList,EmployeeInfo.CompareByName);
+            empList.addAll(filteredModelList);
+        }
+        notifyDataSetChanged();
     }
 }

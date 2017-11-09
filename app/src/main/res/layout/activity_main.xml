@@ -6,9 +6,17 @@
     android:layout_height="match_parent"
     tools:context="com.cto247.directoryapp.MainActivity">
 
+  <android.support.v7.widget.SearchView
+      android:id="@+id/dirsearch"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:iconifiedByDefault="false">
+  </android.support.v7.widget.SearchView>
+
   <FrameLayout
       android:id="@+id/fragContainer"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"/>
+      android:layout_height="match_parent"
+      android:layout_below="@id/dirsearch"/>
 
 </RelativeLayout>
