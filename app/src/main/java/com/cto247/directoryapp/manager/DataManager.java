@@ -32,5 +32,6 @@ public class DataManager {
 
     public void setEmployeeInfoList(List<EmployeeInfo> employeeInfoList) {
         this.employeeInfoList = employeeInfoList;
+
     }
 }

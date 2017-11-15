@@ -1,5 +1,6 @@
 package com.cto247.directoryapp;
 
+import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,11 +26,13 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name;
         public ImageView logo;
+        public TextView contactInfo;
 
         public MyViewHolder(View view) {
             super(view);
             name = (TextView) view.findViewById(R.id.name);
             logo = (ImageView) view.findViewById(R.id.img_android);
+            contactInfo = (TextView) view.findViewById(R.id.contactinfo);
         }
     }
 
@@ -51,9 +54,15 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         EmployeeInfo emp = empList.get(position);
+        String nameDetail = emp.getFullName();
 
-        holder.name.setText(emp.getFullName());
+        if (emp.getExt() != null && emp.getExt().length() > 0){
+            nameDetail = nameDetail +" - Ext."+ emp.getExt();
+        }
+
+        holder.name.setText(nameDetail);
         holder.logo.setBackgroundResource(R.drawable.con64);
+        holder.contactInfo.setText("M: "+ emp.getMobile());
     }
 
     @Override
@@ -71,7 +80,17 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
             query = query.toLowerCase();
             List<EmployeeInfo> filteredModelList = new ArrayList<>();
             for (EmployeeInfo model : orgList) {
-                final String text = model.getFullName().toLowerCase();
+                String text = model.getFullName().toLowerCase();
+
+                if (model.getMobile() != null){
+                    text = text +" "+ model.getMobile();
+                }
+
+                if (model.getExt() != null)
+                {
+                    text = text +" "+ model.getExt();
+                }
+
                 if (text.contains(query)) {
                     filteredModelList.add(model);
                 }
@@ -82,4 +101,6 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
         }
         notifyDataSetChanged();
     }
+
+
 }

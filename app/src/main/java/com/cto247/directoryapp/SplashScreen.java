@@ -24,7 +24,8 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_layout);
         Context context = getApplicationContext();
-        DirectoryAPIClient.getEmployeeData(context, callBack);
+        //DirectoryAPIClient.getEmployeeData(context, callBack);
+        DirectoryAPIClient.getData(callBack);
     }
 
     private IAPICallBack callBack = new IAPICallBack() {
