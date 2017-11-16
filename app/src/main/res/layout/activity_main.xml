@@ -10,7 +10,8 @@
       android:id="@+id/dirsearch"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      app:iconifiedByDefault="false">
+      android:focusedByDefault="false"
+      app:iconifiedByDefault="true">
   </android.support.v7.widget.SearchView>
 
   <FrameLayout

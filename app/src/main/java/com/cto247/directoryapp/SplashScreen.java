@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.cto247.directoryapp.callbacks.IAPICallBack;
-import com.cto247.directoryapp.models.EmployeeInfo;
+import com.cto247.directoryapp.models.Employee;
 import com.cto247.directoryapp.network.DirectoryAPIClient;
 
 import java.util.List;

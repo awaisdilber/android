@@ -8,6 +8,7 @@ import android.support.v7.widget.SearchView;
 import android.os.Bundle;
 
 import com.cto247.directoryapp.fragment.ContactListFragment;
+import com.cto247.directoryapp.models.DirectoryDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,6 +24,12 @@ public class MainActivity extends AppCompatActivity {
 
 //        addFragment(new ContactListFragment(), "ContactListFragment", true);
         addFragment(fr, "ContactListFragment", true);
+    }
+
+    @Override
+    protected void onDestroy() {
+        DirectoryDatabase.destroyInstance();
+        super.onDestroy();
     }
 
     private void addFragment(Fragment fragment, String tag, boolean isAddtoBackstack) {

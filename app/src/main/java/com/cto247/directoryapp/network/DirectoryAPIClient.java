@@ -11,9 +11,8 @@ import com.cto247.directoryapp.callbacks.IAPICallBack;
 import com.cto247.directoryapp.manager.DataManager;
 import com.cto247.directoryapp.models.ContactsData;
 import com.cto247.directoryapp.models.DirectoryDatabase;
-import com.cto247.directoryapp.models.EmployeeInfo;
+import com.cto247.directoryapp.models.Employee;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -44,16 +43,16 @@ public class DirectoryAPIClient {
 
     public static Boolean getEmployeeData(Context context, final IAPICallBack callBack) {
         IAPIService apiServices = getApiServiceClient();
-        Call<List<EmployeeInfo>> call = apiServices.getContactInfoCall();
+        Call<List<Employee>> call = apiServices.getContactInfoCall();
         final Context ctx = context;
-        call.enqueue(new Callback<List<EmployeeInfo>>() {
+        call.enqueue(new Callback<List<Employee>>() {
             @Override
-            public void onResponse(Call<List<EmployeeInfo>> call, Response<List<EmployeeInfo>> response) {
+            public void onResponse(Call<List<Employee>> call, Response<List<Employee>> response) {
                 if(response.code() == 200 && response.body() != null) {
                     String text = response.body().toString();
 
-                    DataManager.getDataManager().setEmployeeInfoList(response.body());
-                    insertRecords(DataManager.getDataManager().getEmployeeInfoList());
+                    DataManager.getDataManager().setEmployeeList(response.body());
+                    insertRecords(DataManager.getDataManager().getEmployeeList());
 
                     if(callBack != null) {
                         callBack.onSuccess();
@@ -65,7 +64,7 @@ public class DirectoryAPIClient {
             }
 
             @Override
-            public void onFailure(Call<List<EmployeeInfo>> call, Throwable t) {
+            public void onFailure(Call<List<Employee>> call, Throwable t) {
                 callBack.onFailure(t.getMessage());
             }
         });
@@ -79,11 +78,12 @@ public class DirectoryAPIClient {
 
         if (lastUpdated > 0){
             Date updatedOn = new Date(lastUpdated);
-            if(new Date().after(updatedOn)){
+            Long curDate = new Date().getTime();
+            Long days = (curDate - lastUpdated) /(24*60*60*1000);
+            if(Math.abs(days) >= 1){
                 getEmployeeData(CTOApp.getAppContext(), callBack);
+                return true;
             }
-
-            return true;
         }
 
         getRecords(callBack);
@@ -99,18 +99,21 @@ public class DirectoryAPIClient {
         editor.commit();
     }
 
-    public static void insertRecords(final List<EmployeeInfo> employees) {
-        new AsyncTask<EmployeeInfo, Void, List<Long>>() {
+    public static void insertRecords(final List<Employee> employees) {
+        new AsyncTask<Employee, Void, List<Long>>() {
             @Override
-            protected List<Long> doInBackground(EmployeeInfo... params) {
-                Integer count = params.length;
-                return DirectoryDatabase.getInstance().getEmployeeInfoDAO().insertAll(employees);
+            protected List<Long> doInBackground(Employee... params) {
+                DirectoryDatabase.getInstance().getEmployeeDAO().deleteAll();
+                return DirectoryDatabase.getInstance().getEmployeeDAO().insertAll(employees);
             }
 
             @Override
             protected void onPostExecute(List<Long> longs) {
-                //getRecords();
-                //DataManager.getDataManager().setEmployeeInfoList(employees);
+                if (DirectoryDatabase.getInstance().isOpen())
+                {
+                    DirectoryDatabase.getInstance().close();
+                }
+
                 updateSyncDate();
             }
         }.execute();
@@ -118,16 +121,22 @@ public class DirectoryAPIClient {
 
     public static void getRecords(final IAPICallBack callBack)
     {
-        new AsyncTask<Void, Void, List<EmployeeInfo>>(){
+        new AsyncTask<Void, Void, List<Employee>>(){
             @Override
-            protected List<EmployeeInfo> doInBackground(Void... voids) {
-                return DirectoryDatabase.getInstance().getEmployeeInfoDAO().getAllEmployees();
+            protected List<Employee> doInBackground(Void... voids) {
+                return DirectoryDatabase.getInstance().getEmployeeDAO().getAllEmployees();
             }
 
             @Override
-            protected void onPostExecute(List<EmployeeInfo> employees) {
+            protected void onPostExecute(List<Employee> employees) {
                 if (employees.size() > 0){
-                    DataManager.getDataManager().setEmployeeInfoList(employees);
+
+                    if (DirectoryDatabase.getInstance().isOpen())
+                    {
+                        DirectoryDatabase.getInstance().close();
+                    }
+
+                    DataManager.getDataManager().setEmployeeList(employees);
                     if(callBack != null) {
                         callBack.onSuccess();
                     }
@@ -145,7 +154,7 @@ public class DirectoryAPIClient {
 
             @Override
             protected Void doInBackground(Void... voids) {
-                DirectoryDatabase.getInstance().getEmployeeInfoDAO().deleteAll();
+                DirectoryDatabase.getInstance().getEmployeeDAO().deleteAll();
                 return  null;
             }
 

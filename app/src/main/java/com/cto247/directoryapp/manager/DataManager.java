@@ -1,6 +1,6 @@
 package com.cto247.directoryapp.manager;
 
-import com.cto247.directoryapp.models.EmployeeInfo;
+import com.cto247.directoryapp.models.Employee;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +13,10 @@ public class DataManager {
 
     private static DataManager dataManager;
 
-    private List<EmployeeInfo> employeeInfoList;
+    private List<Employee> employeeList;
 
     private DataManager() {
-        employeeInfoList = new ArrayList<EmployeeInfo>();
+        employeeList = new ArrayList<Employee>();
     }
 
     public static DataManager getDataManager() {
@@ -26,12 +26,12 @@ public class DataManager {
         return dataManager;
     }
 
-    public List<EmployeeInfo> getEmployeeInfoList() {
-        return employeeInfoList;
+    public List<Employee> getEmployeeList() {
+        return employeeList;
     }
 
-    public void setEmployeeInfoList(List<EmployeeInfo> employeeInfoList) {
-        this.employeeInfoList = employeeInfoList;
+    public void setEmployeeList(List<Employee> employeeList) {
+        this.employeeList = employeeList;
 
     }
 }

@@ -9,31 +9,28 @@ import java.util.Comparator;
  * Created by Sam on 10/7/2017.
  */
 @Entity
-public class EmployeeInfo {
-    @PrimaryKey(autoGenerate = true)
-    private Long Id;
-    private String EmployeeId;
-    private String EmployeeName;
+public class Employee {
+    @PrimaryKey
+    private int EmployeeID;
+    private String EmployeeNo;
     private String FullName;
     private String Department;
+    private String Designation;
     private String Ext;
-    private String ContactNumber;
-    private String EmergencyContactNumber;
-    private String Address;
+    private String ContactPhone;
     private String Mobile;
+    private String PersonalEmail;
+    private String OfficialEmail;
 
-    public Long getId(){ return Id; }
-    public void setId(Long value){ Id = value; }
-
-    public String getEmployeeId() {
-        return EmployeeId;
+    public int getEmployeeID() {
+        return EmployeeID;
     }
-    public void setEmployeeId(String employeeId){ EmployeeId = employeeId; }
+    public void setEmployeeID(int employeeID){ EmployeeID = employeeID; }
 
-    public String getEmployeeName() {
-        return EmployeeName;
+    public String getEmployeeNo() {
+        return EmployeeNo;
     }
-    public void setEmployeeName(String employeeName){ EmployeeName = employeeName; }
+    public void setEmployeeNo(String employeeNo){ EmployeeNo = employeeNo; }
 
     public String getFullName() {
         return FullName;
@@ -45,6 +42,11 @@ public class EmployeeInfo {
     }
     public void setMobile(String mobile){ Mobile = mobile; }
 
+    public String getDesignation() {
+        return Designation;
+    }
+    public void setDesignation(String designation){ Designation = designation; }
+
     public String getDepartment() {
         return Department;
     }
@@ -55,23 +57,19 @@ public class EmployeeInfo {
     }
     public void setExt(String ext){ Ext = ext; }
 
-    public String getContactNumber() {
-        return ContactNumber;
+    public String getContactPhone() {
+        return ContactPhone;
     }
-    public void setContactNumber(String contactNumber){ ContactNumber = contactNumber; }
+    public void setContactPhone(String contactPhone){ ContactPhone = contactPhone; }
 
-    public String getEmergencyContactNumber() {
-        return EmergencyContactNumber;
-    }
-    public void setEmergencyContactNumber(String emergencyContactNumber){ EmergencyContactNumber = emergencyContactNumber; }
+    public String getPersonalEmail(){ return PersonalEmail; }
+    public void setPersonalEmail(String personalEmail){ PersonalEmail = personalEmail; }
 
-    public String getAddress() {
-        return Address;
-    }
-    public void setAddress(String address){ Address = address; }
+    public String getOfficialEmail(){ return OfficialEmail; }
+    public void setOfficialEmail(String officialEmail){ OfficialEmail = officialEmail; }
 
-    public static Comparator<EmployeeInfo> CompareByName = new Comparator<EmployeeInfo>(){
-        public int compare(EmployeeInfo e1, EmployeeInfo e2) {
+    public static Comparator<Employee> CompareByName = new Comparator<Employee>(){
+        public int compare(Employee e1, Employee e2) {
             String EmployeeName1 = e1.getFullName().toUpperCase();
             String EmployeeName2 = e2.getFullName().toUpperCase();
 

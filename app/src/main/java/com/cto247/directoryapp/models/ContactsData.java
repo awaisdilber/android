@@ -8,13 +8,13 @@ import java.util.List;
 
 public class ContactsData {
 
-    private List<EmployeeInfo> employees;
+    private List<Employee> employees;
 
-    public List<EmployeeInfo> getEmployees() {
+    public List<Employee> getEmployees() {
         return employees;
     }
 
-    public void setEmployees(List<EmployeeInfo> employees) {
+    public void setEmployees(List<Employee> employees) {
         this.employees = employees;
     }
 }

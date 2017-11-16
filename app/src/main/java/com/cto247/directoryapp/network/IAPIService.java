@@ -1,7 +1,7 @@
 package com.cto247.directoryapp.network;
 
 import com.cto247.directoryapp.models.ContactsData;
-import com.cto247.directoryapp.models.EmployeeInfo;
+import com.cto247.directoryapp.models.Employee;
 
 import java.util.List;
 
@@ -17,5 +17,5 @@ import retrofit2.http.Query;
 public interface IAPIService {
 
     @GET("/api/employee")
-    Call<List<EmployeeInfo>> getContactInfoCall();
+    Call<List<Employee>> getContactInfoCall();
 }
