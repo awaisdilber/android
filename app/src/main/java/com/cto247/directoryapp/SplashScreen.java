@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.cto247.directoryapp.callbacks.IAPICallBack;
-import com.cto247.directoryapp.models.EmployeeInfo;
+import com.cto247.directoryapp.models.Employee;
 import com.cto247.directoryapp.network.DirectoryAPIClient;
 
 import java.util.List;
@@ -24,7 +24,8 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_layout);
         Context context = getApplicationContext();
-        DirectoryAPIClient.getEmployeeData(context, callBack);
+        //DirectoryAPIClient.getEmployeeData(context, callBack);
+        DirectoryAPIClient.getData(callBack);
     }
 
     private IAPICallBack callBack = new IAPICallBack() {

@@ -1,7 +1,5 @@
 package com.cto247.directoryapp.callbacks;
 
-import com.cto247.directoryapp.models.EmployeeInfo;
-
 import java.util.List;
 
 /**

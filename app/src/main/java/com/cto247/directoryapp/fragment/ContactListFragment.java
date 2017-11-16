@@ -10,11 +10,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.LayoutAnimationController;
+import android.view.animation.AnimationUtils;
 
 import com.cto247.directoryapp.ContactListAdapter;
 import com.cto247.directoryapp.R;
 import com.cto247.directoryapp.manager.DataManager;
-import com.cto247.directoryapp.models.EmployeeInfo;
+import com.cto247.directoryapp.models.Employee;
 
 import java.util.List;
 
@@ -26,7 +28,7 @@ public class ContactListFragment extends Fragment implements SearchView.OnQueryT
 
     private ContactListAdapter mAdapter;
     private RecyclerView recyclerView;
-    private List<EmployeeInfo> mEmployeeModel;
+    private List<Employee> mEmployeeModel;
     private SearchView dirSearch;
 
     public void setDirSearch(SearchView value){
@@ -40,13 +42,13 @@ public class ContactListFragment extends Fragment implements SearchView.OnQueryT
         View view = inflater.inflate(R.layout.contact_list_frag_layout, container, false);
 
         //        ContactListAdapter mAdapter = new ContactListAdapter(DataManager.getDataManager().getEmployeeInfoList());
-        mAdapter = new ContactListAdapter(DataManager.getDataManager().getEmployeeInfoList());
+        mAdapter = new ContactListAdapter(DataManager.getDataManager().getEmployeeList());
 
 //        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        //recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
 
 //        SearchView dirSearch = (SearchView)view.findViewById(R.id.dirsearch);
@@ -68,6 +70,8 @@ public class ContactListFragment extends Fragment implements SearchView.OnQueryT
     @Override
     public boolean onQueryTextChange(String newText) {
         mAdapter.setFilter(newText);
+        recyclerView.scheduleLayoutAnimation();
+
         return true;
     }
 }
