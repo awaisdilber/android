@@ -2,13 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:id="@+id/listItemRelativeLayout"
     android:padding="5dp">
     <ImageView
         android:id="@+id/img_android"
         android:adjustViewBounds="true"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:clickable="true"/>
+        android:clickable="false"/>
     <TextView
         android:id="@+id/name"
         android:paddingLeft="20dp"
@@ -16,11 +19,12 @@
         android:layout_toEndOf="@+id/img_android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="14dp"
+        android:textSize="14sp"
         android:textColor="#000"
         android:textColorHighlight="#000"
         android:text="Awais Dilber"
-        android:clickable="true"/>
+        android:clickable="true"
+        android:focusable="true"/>
     <TextView
         android:id="@+id/contactinfo"
         android:paddingLeft="20dp"
@@ -29,10 +33,11 @@
         android:layout_below="@id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="14dp"
+        android:layout_centerVertical="true"
+        android:textSize="14sp"
         android:textColor="#000"
         android:textColorHighlight="#000"
         android:text=""
-        android:clickable="true"/>
+        android:clickable="false"/>
 
 </RelativeLayout>

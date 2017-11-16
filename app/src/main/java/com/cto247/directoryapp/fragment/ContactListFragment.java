@@ -2,7 +2,6 @@ package com.cto247.directoryapp.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -10,10 +9,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.LayoutAnimationController;
-import android.view.animation.AnimationUtils;
 
 import com.cto247.directoryapp.ContactListAdapter;
+import com.cto247.directoryapp.MainActivity;
 import com.cto247.directoryapp.R;
 import com.cto247.directoryapp.manager.DataManager;
 import com.cto247.directoryapp.models.Employee;
@@ -40,9 +38,10 @@ public class ContactListFragment extends Fragment implements SearchView.OnQueryT
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.contact_list_frag_layout, container, false);
+        ((MainActivity)getActivity()).hideOrShowSearchView(true);
 
         //        ContactListAdapter mAdapter = new ContactListAdapter(DataManager.getDataManager().getEmployeeInfoList());
-        mAdapter = new ContactListAdapter(DataManager.getDataManager().getEmployeeList());
+        mAdapter = new ContactListAdapter(getActivity() , DataManager.getDataManager().getEmployeeList());
 
 //        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
