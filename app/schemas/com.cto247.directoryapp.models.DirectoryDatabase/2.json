@@ -1,0 +1,87 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "495f037e77d5234c4ac95e50f52cd0c4",
+    "entities": [
+      {
+        "tableName": "Employee",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`EmployeeID` INTEGER NOT NULL, `EmployeeNo` TEXT, `FullName` TEXT, `Department` TEXT, `Designation` TEXT, `Ext` TEXT, `ContactPhone` TEXT, `Mobile` TEXT, `PersonalEmail` TEXT, `OfficialEmail` TEXT, PRIMARY KEY(`EmployeeID`))",
+        "fields": [
+          {
+            "fieldPath": "EmployeeID",
+            "columnName": "EmployeeID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "EmployeeNo",
+            "columnName": "EmployeeNo",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "FullName",
+            "columnName": "FullName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "Department",
+            "columnName": "Department",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "Designation",
+            "columnName": "Designation",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "Ext",
+            "columnName": "Ext",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ContactPhone",
+            "columnName": "ContactPhone",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "Mobile",
+            "columnName": "Mobile",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "PersonalEmail",
+            "columnName": "PersonalEmail",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "OfficialEmail",
+            "columnName": "OfficialEmail",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "EmployeeID"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"495f037e77d5234c4ac95e50f52cd0c4\")"
+    ]
+  }
+}
