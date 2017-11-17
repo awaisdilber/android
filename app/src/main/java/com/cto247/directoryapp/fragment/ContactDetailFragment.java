@@ -1,18 +1,15 @@
 package com.cto247.directoryapp.fragment;
 
+import android.Manifest;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import android.Manifest;
-
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.support.v4.app.ActivityCompat;
-
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +27,7 @@ import static com.cto247.directoryapp.utils.Constants.MOBILE_NUM;
  * Created by adilber on 11/14/2017.
  */
 
-public class ContactDetailFragment extends Fragment implements View.OnClickListener{
+public class ContactDetailFragment extends Fragment implements View.OnClickListener {
 
     private String fullName = "N/A";
     private String mobileNum = "N/A";
@@ -46,13 +43,13 @@ public class ContactDetailFragment extends Fragment implements View.OnClickListe
 
         View view = inflater.inflate(R.layout.contact_detail_frag_layout, container, false);
 
-        ((MainActivity)getActivity()).hideOrShowSearchView(false);
+        ((MainActivity) getActivity()).hideOrShowSearchView(false);
 
 //        imgBtn = (ImageButton) getView().findViewById(R.id.imgCallMobile);
 //        imgBtn.setOnClickListener(this);
 
         Bundle arg = getArguments();
-        if(arg != null) {
+        if (arg != null) {
             fullName = arg.getString(FULL_NAME);
             mobileNum = arg.getString(MOBILE_NUM);
             emerNum = arg.getString(EMER_NUM);
@@ -66,16 +63,18 @@ public class ContactDetailFragment extends Fragment implements View.OnClickListe
     }
 
     private void initViews(View v) {
-        ((TextView)v.findViewById(R.id.txtFullNameDetailView)).setText(fullName);
-        ((TextView)v.findViewById(R.id.txtMobileDetailView)).setText(mobileNum);
-        ((TextView)v.findViewById(R.id.txtEmergencyContactNumberDetailView)).setText(emerNum);
-        ((TextView)v.findViewById(R.id.txttxPersonalEmailDetailView)).setText(email);
-        ((TextView)v.findViewById(R.id.txDesignationDetailView)).setText(designation);
-        ((TextView)v.findViewById(R.id.txDepartmentDetailView)).setText(department);
-        ((TextView)v.findViewById(R.id.txManagerDetailView)).setText(manager);
+        ((TextView) v.findViewById(R.id.txtFullNameDetailView)).setText(fullName);
+        ((TextView) v.findViewById(R.id.txtMobileDetailView)).setText(mobileNum);
+        ((TextView) v.findViewById(R.id.txtEmergencyContactNumberDetailView)).setText(emerNum);
+        ((TextView) v.findViewById(R.id.txttxPersonalEmailDetailView)).setText(email);
+        ((TextView) v.findViewById(R.id.txDesignationDetailView)).setText(designation);
+        ((TextView) v.findViewById(R.id.txDepartmentDetailView)).setText(department);
+        ((TextView) v.findViewById(R.id.txManagerDetailView)).setText(manager);
 
         v.findViewById(R.id.imgCallMobile).setOnClickListener(this);
         v.findViewById(R.id.imgCallEMRMobile).setOnClickListener(this);
+        v.findViewById(R.id.imgEmailPersonal).setOnClickListener(this);
+        v.findViewById(R.id.imgMsgMobile).setOnClickListener(this);
     }
 
     @Override
@@ -87,16 +86,22 @@ public class ContactDetailFragment extends Fragment implements View.OnClickListe
             case R.id.imgCallEMRMobile:
                 call(emerNum);
                 break;
+            case R.id.imgEmailPersonal:
+                composeEmail(email);
+                break;
+            case R.id.imgMsgMobile:
+                SendMessage(mobileNum);
+                break;
         }
     }
 
     private void call(String number) {
-        if("".equals(number) || number == null) {
+        if ("".equals(number) || number == null || number.contains("xxxx")) {
             Toast.makeText(getActivity(), "Invalid Number!", Toast.LENGTH_LONG).show();
             return;
         }
         Intent callIntent = new Intent(Intent.ACTION_CALL);
-        callIntent.setData(Uri.parse("tel:"+number));
+        callIntent.setData(Uri.parse("tel:" + number));
         if (ActivityCompat.checkSelfPermission(getActivity(),
                 Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
             Toast.makeText(getActivity(), "Please grant permission to call in settings!",
@@ -104,6 +109,31 @@ public class ContactDetailFragment extends Fragment implements View.OnClickListe
             return;
         }
         startActivity(callIntent);
+    }
+
+    public void composeEmail(String emlAddress) {
+        if (emlAddress != null) {
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setType("text/plain");
+            intent.setData(Uri.parse("mailto:" + emlAddress));
+            intent.putExtra(Intent.EXTRA_EMAIL, emlAddress);
+            startActivity(intent);
+        } else {
+            Toast.makeText(getActivity(), "Invalid Email Address!", Toast.LENGTH_LONG).show();
+            return;
+        }
+    }
+
+    public void SendMessage(String number) {
+        if (number != null) {
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setType("text/plain");
+            intent.setData(Uri.parse("smsto:" + number));
+            startActivity(intent);
+        } else {
+            Toast.makeText(getActivity(), "Invalid Number!", Toast.LENGTH_LONG).show();
+            return;
+        }
     }
 
     @Override

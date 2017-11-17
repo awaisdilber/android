@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         if(isAddtoBackstack) {
             fragmentTransaction.addToBackStack(tag);
         }
+        fragmentTransaction.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         fragmentTransaction.commit();
     }
 

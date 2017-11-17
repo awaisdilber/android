@@ -22,7 +22,7 @@ import java.util.List;
  * Created by Muhammad Awais on 28-Oct-17.
  */
 
-public class ContactListFragment extends Fragment implements SearchView.OnQueryTextListener {
+public class ContactListFragment extends Fragment implements SearchView.OnQueryTextListener  {
 
     private ContactListAdapter mAdapter;
     private RecyclerView recyclerView;
