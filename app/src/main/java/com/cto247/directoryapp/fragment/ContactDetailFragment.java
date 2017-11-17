@@ -30,6 +30,7 @@ import static com.cto247.directoryapp.utils.Constants.MOBILE_NUM;
 public class ContactDetailFragment extends Fragment implements View.OnClickListener {
 
     private String fullName = "N/A";
+    private String ext = "N/A";
     private String mobileNum = "N/A";
     private String emerNum = "N/A";
     private String email = "N/A";
@@ -45,12 +46,10 @@ public class ContactDetailFragment extends Fragment implements View.OnClickListe
 
         ((MainActivity) getActivity()).hideOrShowSearchView(false);
 
-//        imgBtn = (ImageButton) getView().findViewById(R.id.imgCallMobile);
-//        imgBtn.setOnClickListener(this);
-
         Bundle arg = getArguments();
         if (arg != null) {
             fullName = arg.getString(FULL_NAME);
+            ext = arg.getString("ext");
             mobileNum = arg.getString(MOBILE_NUM);
             emerNum = arg.getString(EMER_NUM);
             email = arg.getString(EMAIL);
@@ -63,7 +62,7 @@ public class ContactDetailFragment extends Fragment implements View.OnClickListe
     }
 
     private void initViews(View v) {
-        ((TextView) v.findViewById(R.id.txtFullNameDetailView)).setText(fullName);
+        ((TextView) v.findViewById(R.id.txtFullNameDetailView)).setText(fullName + " - Ext. " + ext);
         ((TextView) v.findViewById(R.id.txtMobileDetailView)).setText(mobileNum);
         ((TextView) v.findViewById(R.id.txtEmergencyContactNumberDetailView)).setText(emerNum);
         ((TextView) v.findViewById(R.id.txttxPersonalEmailDetailView)).setText(email);

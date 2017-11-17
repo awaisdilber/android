@@ -94,6 +94,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
 
         Bundle bundle = new Bundle();
         bundle.putString(FULL_NAME, empList.get(position).getFullName());
+        bundle.putString("ext", empList.get(position).getExt());
         bundle.putString(MOBILE_NUM, empList.get(position).getMobile());
         bundle.putString(EMER_NUM, empList.get(position).getContactPhone());
         bundle.putString(EMAIL, empList.get(position).getPersonalEmail());
