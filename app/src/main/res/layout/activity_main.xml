@@ -10,6 +10,7 @@
       android:id="@+id/dirsearch"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      app:defaultQueryHint="Name, Mobile or Extension"
       android:focusedByDefault="false"
       app:iconifiedByDefault="true">
   </android.support.v7.widget.SearchView>

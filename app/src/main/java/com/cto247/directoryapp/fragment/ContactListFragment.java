@@ -50,7 +50,6 @@ public class ContactListFragment extends Fragment implements SearchView.OnQueryT
         //recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
 
-//        SearchView dirSearch = (SearchView)view.findViewById(R.id.dirsearch);
         if (dirSearch != null) {
             dirSearch.setOnQueryTextListener(this);
         }
@@ -72,5 +71,19 @@ public class ContactListFragment extends Fragment implements SearchView.OnQueryT
         recyclerView.scheduleLayoutAnimation();
 
         return true;
+    }
+
+    @Override
+    public void onResume() {
+        if (dirSearch != null){
+            CharSequence query = dirSearch.getQuery();
+            if (query.length() > 0)
+            {
+                onQueryTextChange(query.toString());
+//                dirSearch.setQuery("", false);
+//                dirSearch.clearFocus();
+            }
+        }
+        super.onResume();
     }
 }
