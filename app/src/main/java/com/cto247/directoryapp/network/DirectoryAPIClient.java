@@ -34,7 +34,7 @@ public class DirectoryAPIClient {
     private static IAPIService getApiServiceClient() {
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://webapi-employeedirectory.azurewebsites.net")
+                .baseUrl("http://ServiceUrl.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
