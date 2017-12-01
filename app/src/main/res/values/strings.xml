@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Employee Directory</string>
+    <string name="app_name">SPPL Directory</string>
     <string name="pref_file_name">com.cto247.directoryApp.settings</string>
     <string name="syncdate_field_name">LastUpdated</string>
 </resources>

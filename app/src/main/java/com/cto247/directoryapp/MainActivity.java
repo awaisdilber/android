@@ -38,12 +38,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void replaceFragment(Fragment fragment, String tag, boolean isAddtoBackstack) {
         FragmentManager fragmentManager = getSupportFragmentManager();
+
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
         fragmentTransaction.replace(R.id.fragContainer, fragment);
         if(isAddtoBackstack) {
             fragmentTransaction.addToBackStack(tag);
         }
-        fragmentTransaction.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         fragmentTransaction.commit();
     }
 

@@ -16,6 +16,8 @@ import android.widget.Toast;
 import com.cto247.directoryapp.MainActivity;
 import com.cto247.directoryapp.R;
 
+import java.util.Arrays;
+
 import static com.cto247.directoryapp.utils.Constants.DEPARTMENT;
 import static com.cto247.directoryapp.utils.Constants.DESIGNATION;
 import static com.cto247.directoryapp.utils.Constants.EMAIL;
@@ -62,7 +64,14 @@ public class ContactDetailFragment extends Fragment implements View.OnClickListe
     }
 
     private void initViews(View v) {
-        ((TextView) v.findViewById(R.id.txtFullNameDetailView)).setText(fullName + " - Ext. " + ext);
+
+        if (ext != null && ext.length() > 0){
+            fullName = fullName +" - Ext. "+ ext;
+        }
+
+        mobileNum = Arrays.asList(mobileNum.split(",")).get(0);
+
+        ((TextView) v.findViewById(R.id.txtFullNameDetailView)).setText(fullName);
         ((TextView) v.findViewById(R.id.txtMobileDetailView)).setText(mobileNum);
         ((TextView) v.findViewById(R.id.txtEmergencyContactNumberDetailView)).setText(emerNum);
         ((TextView) v.findViewById(R.id.txttxPersonalEmailDetailView)).setText(email);
@@ -71,6 +80,10 @@ public class ContactDetailFragment extends Fragment implements View.OnClickListe
         ((TextView) v.findViewById(R.id.txManagerDetailView)).setText(manager);
 
         v.findViewById(R.id.imgCallMobile).setOnClickListener(this);
+        v.findViewById(R.id.imgCallMobileDetailView).setOnClickListener(this);
+        v.findViewById(R.id.imgMsgMobileDetailView).setOnClickListener(this);
+
+
         v.findViewById(R.id.imgCallEMRMobile).setOnClickListener(this);
         v.findViewById(R.id.imgEmailPersonal).setOnClickListener(this);
         v.findViewById(R.id.imgMsgMobile).setOnClickListener(this);
@@ -82,6 +95,9 @@ public class ContactDetailFragment extends Fragment implements View.OnClickListe
             case R.id.imgCallMobile:
                 call(mobileNum);
                 break;
+            case R.id.imgCallMobileDetailView:
+                call(mobileNum);
+                break;
             case R.id.imgCallEMRMobile:
                 call(emerNum);
                 break;
@@ -89,6 +105,9 @@ public class ContactDetailFragment extends Fragment implements View.OnClickListe
                 composeEmail(email);
                 break;
             case R.id.imgMsgMobile:
+                SendMessage(mobileNum);
+                break;
+            case R.id.imgMsgMobileDetailView:
                 SendMessage(mobileNum);
                 break;
         }

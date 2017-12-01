@@ -68,7 +68,7 @@
                             android:id="@+id/txtMobileDetailView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0300 4384961"
+                            android:text="0300 4384961, 0345-47719402"
                             android:textColor="#000000"
                             android:textSize="15sp" />
 
@@ -80,11 +80,13 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="4"
                         android:clickable="true"
+                        android:background="@drawable/background"
                         android:focusable="true"
                         android:orientation="horizontal"
                         android:padding="20dp">
 
                         <ImageButton
+                            android:hapticFeedbackEnabled="true"
                             android:id="@+id/imgCallMobile"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
@@ -98,11 +100,13 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="4"
                         android:clickable="true"
+                        android:background="@drawable/background"
                         android:focusable="true"
                         android:orientation="horizontal"
                         android:padding="20dp">
 
                         <ImageButton
+                            android:hapticFeedbackEnabled="true"
                             android:id="@+id/imgMsgMobile"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
