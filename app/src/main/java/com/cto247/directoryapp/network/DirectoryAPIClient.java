@@ -2,6 +2,8 @@ package com.cto247.directoryapp.network;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -80,7 +82,7 @@ public class DirectoryAPIClient {
             Date updatedOn = new Date(lastUpdated);
             Long curDate = new Date().getTime();
             Long days = (curDate - lastUpdated) /(24*60*60*1000);
-            if(Math.abs(days) >= 1){
+            if(Math.abs(days) >= 1 && isInternetAvailable(CTOApp.getAppContext())){
                 getEmployeeData(CTOApp.getAppContext(), callBack);
                 return true;
             }
@@ -88,6 +90,13 @@ public class DirectoryAPIClient {
 
         getRecords(callBack);
         return  true;
+    }
+
+    public static boolean isInternetAvailable(Context context) {
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 
     public static void updateSyncDate()

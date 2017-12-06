@@ -154,10 +154,14 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/imgCallEMRMobileDetailView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="4"
                         android:orientation="horizontal"
+                        android:clickable="true"
+                        android:background="@drawable/background"
+                        android:focusable="true"
                         android:padding="20dp">
 
                         <ImageButton
@@ -208,10 +212,14 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/imgEmailPersonalDetailView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="4"
                         android:orientation="horizontal"
+                        android:clickable="true"
+                        android:background="@drawable/background"
+                        android:focusable="true"
                         android:padding="20dp">
 
                         <!--<ImageView-->

@@ -82,7 +82,8 @@ public class ContactDetailFragment extends Fragment implements View.OnClickListe
         v.findViewById(R.id.imgCallMobile).setOnClickListener(this);
         v.findViewById(R.id.imgCallMobileDetailView).setOnClickListener(this);
         v.findViewById(R.id.imgMsgMobileDetailView).setOnClickListener(this);
-
+        v.findViewById(R.id.imgCallEMRMobileDetailView).setOnClickListener(this);
+        v.findViewById(R.id.imgEmailPersonalDetailView).setOnClickListener(this);
 
         v.findViewById(R.id.imgCallEMRMobile).setOnClickListener(this);
         v.findViewById(R.id.imgEmailPersonal).setOnClickListener(this);
@@ -109,6 +110,12 @@ public class ContactDetailFragment extends Fragment implements View.OnClickListe
                 break;
             case R.id.imgMsgMobileDetailView:
                 SendMessage(mobileNum);
+                break;
+            case R.id.imgEmailPersonalDetailView:
+                composeEmail(email);
+                break;
+            case R.id.imgCallEMRMobileDetailView:
+                call(emerNum);
                 break;
         }
     }
