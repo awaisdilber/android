@@ -1,6 +1,9 @@
 package com.cto247.directoryapp.fragment;
 
 import android.Manifest;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -15,6 +18,7 @@ import android.widget.Toast;
 
 import com.cto247.directoryapp.MainActivity;
 import com.cto247.directoryapp.R;
+import com.cto247.directoryapp.app.CTOApp;
 
 import java.util.Arrays;
 
@@ -88,6 +92,27 @@ public class ContactDetailFragment extends Fragment implements View.OnClickListe
         v.findViewById(R.id.imgCallEMRMobile).setOnClickListener(this);
         v.findViewById(R.id.imgEmailPersonal).setOnClickListener(this);
         v.findViewById(R.id.imgMsgMobile).setOnClickListener(this);
+
+        v.findViewById(R.id.txttxPersonalEmailDetailView).setOnLongClickListener(new View.OnLongClickListener() {
+
+            @Override
+            public boolean onLongClick(View v) {
+
+                if ("".equals(email) || email == null || email.contains("xxxx")) {
+                    Toast.makeText(getActivity(), "No Email address found!", Toast.LENGTH_LONG).show();
+                    return false;
+                }else {
+                    ClipboardManager clipboard = (ClipboardManager) CTOApp.getAppContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                    ClipData clip = ClipData.newPlainText("Email", email);
+                    clipboard.setPrimaryClip(clip);
+
+                    Toast.makeText(getActivity(), "Email address copied to clipboard.",
+                            Toast.LENGTH_LONG).show();
+
+                    return true;
+                }
+            }
+        });
     }
 
     @Override
@@ -165,4 +190,5 @@ public class ContactDetailFragment extends Fragment implements View.OnClickListe
     public void onDestroy() {
         super.onDestroy();
     }
+
 }
