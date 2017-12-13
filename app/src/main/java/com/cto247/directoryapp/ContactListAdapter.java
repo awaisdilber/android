@@ -120,7 +120,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
                 String text = model.getFullName().toLowerCase();
 
                 if (model.getMobile() != null){
-                    text = text +" "+ model.getMobile();
+                    text = text +" "+ model.getMobile().replace("-", "");
                 }
 
                 if (model.getExt() != null)
